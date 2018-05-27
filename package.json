@@ -1,0 +1,27 @@
+{
+  "name": "problem-express",
+  "version": "0.0.1",
+  "description": "RFC 7807 application/problem+json implementation for express framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lklacar/problem-express.git"
+  },
+  "keywords": [
+    "problem",
+    "rfc7807",
+    "express",
+    "error",
+    "handling",
+    "json"
+  ],
+  "author": "Luka Klacar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lklacar/problem-express/issues"
+  },
+  "homepage": "https://github.com/lklacar/problem-express#readme"
+}
