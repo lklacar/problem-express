@@ -1,6 +1,6 @@
 {
   "name": "problem-express",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "RFC 7807 application/problem+json implementation for express framework",
   "main": "index.js",
   "scripts": {
