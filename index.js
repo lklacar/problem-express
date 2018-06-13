@@ -1,6 +1,6 @@
 function clean(obj) {
   const propNames = Object.getOwnPropertyNames(obj);
-  for (var i = 0; i < propNames.length; i++) {
+  for (let i = 0; i < propNames.length; i++) {
     const propName = propNames[i];
     if (obj[propName] === null || obj[propName] === undefined) {
       delete obj[propName];
@@ -10,25 +10,30 @@ function clean(obj) {
 
 function problem(res) {
   return function (status, title, type, detail, instance) {
-    res.setHeader("Content-Type", "application/problem+json");
-    res.send(clean({
-      title,
-      type,
-      status,
-      detail,
-      instance
-    }))
-  }
+    return function () {
+      res.setHeader('Content-Type', 'application/problem+json');
+      res.status(status);
+      const result = {
+        title,
+        type,
+        status,
+        detail,
+        instance
+      };
+      clean(result);
+      res.send(result);
+    };
+  };
 }
 
 function init() {
-  return function (req, res) {
+  return function (req, res, next) {
     const problemRes = problem(res);
-    req.problem = {
+    res.problem = {
       new: problemRes,
 
       // 4xx
-      badRequest: problemRes(400, "Bad request"),
+      badRequest: problemRes(400, 'Bad request'),
       unauthorized: problemRes(401, 'Unauthorized'),
       paymentRequired: problemRes(402, 'Payment required'),
       forbidden: problemRes(403, 'Forbidden'),
@@ -60,8 +65,9 @@ function init() {
       badGateway: problemRes(502, 'Bad gateway'),
       serverUnavailable: problemRes(503, 'Server unavailable'),
       gatewayTimeout: problemRes(504, 'Gateway timeout'),
-    }
-  }
+    };
+    next();
+  };
 }
 
 module.exports = init;
